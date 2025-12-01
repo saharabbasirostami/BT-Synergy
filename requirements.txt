@@ -1,0 +1,23 @@
+# Core
+tensorflow==2.17.0
+numpy==1.26.4
+protobuf==4.25.8
+
+# TensorFlow ecosystem
+tensorflow-hub
+tensorflow-datasets
+
+# Addons (install from GitHub to match TF version compatibility)
+git+https://github.com/tensorflow/addons.git
+
+# Utility & data
+pandas
+matplotlib
+tqdm
+networkx
+scikit-learn
+ml_dtypes
+pubchempy
+
+# optional keras
+keras
