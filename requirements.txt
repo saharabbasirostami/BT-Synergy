@@ -4,17 +4,17 @@ numpy==1.26.4
 protobuf==4.25.8
 
 # TensorFlow ecosystem
-tensorflow-hub==0.13.0
+tensorflow-hub==0.14.0
 tensorflow-datasets==4.9.2
 
-# Addons (install from GitHub)
-git+https://github.com/tensorflow/addons.git@stable
+# Addons
+git+https://github.com/tensorflow/addons.git@0.22.0
 
 # Utility & data
-pandas==2.1.0
+pandas==2.1.1
 matplotlib==3.8.0
 tqdm==4.66.0
 networkx==3.1
 scikit-learn==1.3.0
-ml_dtypes==0.1.0
+ml_dtypes==0.2.0
 pubchempy==1.0.4
