@@ -7,8 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/19rZOGZxgJuYjLB4F5y9jpNEWB-561mpH
 """
 
-from data_utils import *
-from attention_pool import *
+
 # ==============================
 # Setup Colab Environment
 # ==============================
