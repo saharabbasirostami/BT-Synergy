@@ -121,6 +121,30 @@ def mlp(x, hidden_units, dropout_rate):
         x = layers.Dense(units, activation=tf.nn.gelu)(x)
         x = layers.Dropout(dropout_rate)(x)
     return x
+# -----------------------------------------------------------------------------
+# Recurrent-Attention Hybrid Block
+#
+# This block implements a hybrid Transformer–BiLSTM architecture in which the
+# conventional position-wise feed-forward network (FFN) of the Transformer
+# encoder is replaced by a Bidirectional LSTM.
+#
+# Motivation:
+# While self-attention effectively captures global contextual dependencies,
+# it lacks an explicit sequential inductive bias. By substituting the FFN
+# with a BiLSTM, the model preserves temporal order information and models
+# local and long-range sequential patterns within each attention layer.
+#
+# Architectural Design:
+# - Multi-head self-attention is first applied to capture global dependencies.
+# - A residual connection is used to stabilize optimization.
+# - A Bidirectional LSTM replaces the Transformer FFN to explicitly encode
+#   sequential dynamics in both forward and backward directions.
+# - Layer normalization and a second residual connection are employed to
+#   maintain training stability.
+#
+# This design results in a recurrent-attention hybrid block that combines
+# the strengths of Transformer self-attention and recurrent sequence modeling.
+# -----------------------------------------------------------------------------
 
 def transformer_blstm_block(encoded_sequence, projection_dim, num_heads, dropout_attn, blstm_units, transformer_layers):
     x = encoded_sequence
