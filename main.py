@@ -171,6 +171,35 @@ def build_model():
     patches_2 = Patches(patch_size)(Drug2_input)
     encoded_patches_2 = PatchEncoder(num_patches, projection_dim)(patches_2)
     representation_2 = transformer_blstm_block(encoded_patches_2, projection_dim, num_heads, dropout_attn, blstm_units, transformer_layers)
+# -----------------------------------------------------------------------------
+# Dual-Drug and Cell Feature Fusion Module
+#
+# This section implements a dual-input fusion strategy for modeling drug–drug
+# interactions conditioned on cellular context.
+#
+# Feature Extraction:
+# Each drug input is independently tokenized into patches and encoded using
+# a shared Transformer–BiLSTM block, ensuring symmetric representation learning
+# and parameter sharing across drug modalities.
+#
+# Drug-Level Fusion:
+# The resulting drug representations are concatenated to form a joint
+# drug–drug feature vector, which is further refined using an MLP head to
+# capture higher-order interactions between the two compounds.
+#
+# Cell-Aware Fusion:
+# Cellular features are projected into the same latent space as the drug
+# representation to enable meaningful interaction modeling.
+#
+# Interaction Modeling:
+# Multiple element-wise fusion operations (multiplication, addition,
+# subtraction, and concatenation) are applied to explicitly capture diverse
+# interaction patterns between drug and cell features.
+#
+# Final Prediction:
+# The fused representation is normalized and regularized before being passed
+# to a sigmoid-activated output layer for binary prediction.
+# -----------------------------------------------------------------------------
 
     merged_drugs = layers.Concatenate()([representation_1, representation_2])
     features = mlp(merged_drugs, hidden_units=mlp_head_units, dropout_rate=0.5)
